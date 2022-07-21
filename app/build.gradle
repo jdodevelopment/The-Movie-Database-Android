@@ -16,6 +16,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "TMDB_API_KEY", '"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiODkzNjU1ZDdjMjE4MDI2M2E0YjM0ZDY1MDFmMmY0ZSIsInN1YiI6IjVlNGIzZTQwMzU4MTFkMDAxMzRiNDhlYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.NwuCEJceHa3mGcadgBwEIs2v2VibBUbFR1QYnX3T9Rw"')
     }
 
     buildTypes {
