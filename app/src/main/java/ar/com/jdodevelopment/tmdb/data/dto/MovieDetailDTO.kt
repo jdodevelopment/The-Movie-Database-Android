@@ -1,5 +1,6 @@
 package ar.com.jdodevelopment.tmdb.data.dto
 
+import ar.com.jdodevelopment.tmdb.domain.entity.MovieDetail
 import com.google.gson.annotations.SerializedName
 
 data class MovieDetailDTO(
@@ -33,3 +34,29 @@ data class MovieDetailDTO(
     @SerializedName("vote_count")
     val voteCount: Int
 )
+
+fun MovieDetailDTO.toEntity(): MovieDetail {
+    return MovieDetail(
+        adult = adult,
+        backdropPath = backdropPath,
+        budget = budget,
+        genres = genres.map { it.toEntity() },
+        homepage = homepage,
+        id = id,
+        imdbId = imdbId,
+        originalLanguage = originalLanguage,
+        originalTitle = originalTitle,
+        overview = overview,
+        popularity = popularity,
+        posterPath = posterPath,
+        releaseDate = releaseDate,
+        revenue = revenue,
+        runtime = runtime,
+        status = status,
+        tagline = tagline,
+        title = title,
+        video = video,
+        voteAverage = voteAverage,
+        voteCount = voteCount,
+    )
+}
