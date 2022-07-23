@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface MoviesRepository {
 
-    fun getPopularMovies(page: Long): Flow<PagingData<Movie>>
+    fun getPopularMovies(): Flow<PagingData<Movie>>
     suspend fun getMovie(movieId: Long): RemoteResource<MovieDetail>
 
 }

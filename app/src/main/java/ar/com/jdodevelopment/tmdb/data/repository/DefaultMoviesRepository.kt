@@ -21,7 +21,7 @@ class DefaultMoviesRepository @Inject constructor(
     private val errorResolver: ErrorResolver,
 ) : MoviesRepository {
 
-    override fun getPopularMovies(page: Long): Flow<PagingData<Movie>> {
+    override fun getPopularMovies(): Flow<PagingData<Movie>> {
         return Pager(PagingConfig(pageSize = ApiConstants.PAGE_SIZE)) {
             moviesPagingSource
         }.flow

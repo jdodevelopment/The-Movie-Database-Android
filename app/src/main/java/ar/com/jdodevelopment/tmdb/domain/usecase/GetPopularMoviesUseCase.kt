@@ -10,8 +10,8 @@ class GetPopularMoviesUseCase @Inject constructor(
     private val repository: MoviesRepository,
 ) {
 
-    operator fun invoke(page: Long): Flow<PagingData<Movie>> {
-        return repository.getPopularMovies(page)
+    operator fun invoke(): Flow<PagingData<Movie>> {
+        return repository.getPopularMovies()
     }
 
 }
