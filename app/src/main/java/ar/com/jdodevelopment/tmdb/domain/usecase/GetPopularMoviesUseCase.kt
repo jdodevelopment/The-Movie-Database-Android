@@ -1,15 +1,16 @@
 package ar.com.jdodevelopment.tmdb.domain.usecase
 
-import ar.com.jdodevelopment.tmdb.domain.entity.MoviesPage
+import androidx.paging.PagingData
+import ar.com.jdodevelopment.tmdb.domain.entity.Movie
 import ar.com.jdodevelopment.tmdb.domain.repository.MoviesRepository
-import ar.com.jdodevelopment.tmdb.domain.resource.RemoteResource
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetPopularMoviesUseCase @Inject constructor(
     private val repository: MoviesRepository,
 ) {
 
-    suspend operator fun invoke(page: Long): RemoteResource<MoviesPage> {
+    operator fun invoke(page: Long): Flow<PagingData<Movie>> {
         return repository.getPopularMovies(page)
     }
 

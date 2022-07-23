@@ -13,7 +13,7 @@ import retrofit2.http.Query
 interface MoviesApi {
 
     @GET(ApiConstants.Path.GET_POPULAR_MOVIES)
-    suspend fun getPopularMovies(@Query(QueryParam.PAGE) page: Long): MoviesPageDTO
+    suspend fun getPopularMovies(@Query(QueryParam.PAGE) page: Int): MoviesPageDTO
 
     @GET(ApiConstants.Path.GET_MOVIE)
     suspend fun getMovie(@Path(PathParam.MOVIE_ID) movieId: Long): MovieDetailDTO
