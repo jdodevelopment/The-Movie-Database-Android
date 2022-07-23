@@ -1,7 +1,7 @@
 package ar.com.jdodevelopment.tmdb.di
 
 
-import ar.com.jdodevelopment.tmdb.data.constants.ApiConstants
+import ar.com.jdodevelopment.tmdb.BuildConfig
 import ar.com.jdodevelopment.tmdb.data.interceptor.AuthorizationInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -24,7 +24,7 @@ class NetworkModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(ApiConstants.THE_MOVIE_DB_BASE_API_URL)
+            .baseUrl(BuildConfig.THE_MOVIE_DB_BASE_API_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okHttpClient)
             .build()

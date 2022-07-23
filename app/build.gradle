@@ -16,7 +16,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "TMDB_API_KEY", '"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiODkzNjU1ZDdjMjE4MDI2M2E0YjM0ZDY1MDFmMmY0ZSIsInN1YiI6IjVlNGIzZTQwMzU4MTFkMDAxMzRiNDhlYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.NwuCEJceHa3mGcadgBwEIs2v2VibBUbFR1QYnX3T9Rw"')
+        buildConfigField("String", "THE_MOVIE_DB_BASE_API_URL", THE_MOVIE_DB_BASE_API_URL)
+        buildConfigField("String", "TMDB_API_KEY", TMDB_API_KEY)
+        buildConfigField("String", "POSTER_URL", POSTER_URL)
     }
 
     buildTypes {
@@ -49,9 +51,11 @@ dependencies {
     implementation 'androidx.core:core-splashscreen:1.0.0-rc01'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.0'
     implementation 'com.google.android.material:material:1.6.1'
+    implementation("io.coil-kt:coil-compose:1.4.0")
 
     // Compose
     implementation "androidx.compose.ui:ui:$compose_version"
+    implementation("androidx.compose.ui:ui-tooling:$compose_version")
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
 
     // Material Compose
@@ -60,6 +64,9 @@ dependencies {
 
     // Navigation Compose
     implementation "androidx.navigation:navigation-compose:2.5.0"
+
+    // Paging Compose
+    implementation "androidx.paging:paging-compose:1.0.0-alpha15"
 
     // Dagger Hilt
     implementation "com.google.dagger:hilt-android:$dagger_hilt_version"
