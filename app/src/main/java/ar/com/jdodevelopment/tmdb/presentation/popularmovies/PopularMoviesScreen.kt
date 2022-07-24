@@ -2,6 +2,7 @@ package ar.com.jdodevelopment.tmdb.presentation.popularmovies
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
@@ -19,38 +20,48 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.paging.compose.LazyPagingItems
+import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import ar.com.jdodevelopment.tmdb.BuildConfig
 import ar.com.jdodevelopment.tmdb.R
 import ar.com.jdodevelopment.tmdb.domain.entity.Movie
 import ar.com.jdodevelopment.tmdb.presentation.components.VoteAverageIndicator
+import ar.com.jdodevelopment.tmdb.presentation.navigation.Routes
 import coil.compose.rememberImagePainter
 import coil.size.Scale
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun PopularMoviesScreen(viewModel: PopularMoviesViewModel = hiltViewModel()) {
-    val movies = viewModel.movies
-    val lazyMovieItems: LazyPagingItems<Movie> = movies.collectAsLazyPagingItems()
+fun PopularMoviesScreen(
+    navController: NavHostController,
+    viewModel: PopularMoviesViewModel = hiltViewModel()
+) {
+    val lazyPagingItems = viewModel.movies.collectAsLazyPagingItems()
     LazyVerticalGrid(
         cells = GridCells.Adaptive(192.dp),
         modifier = Modifier.fillMaxSize()
     ) {
-        items(lazyMovieItems.itemCount) { index ->
-            lazyMovieItems[index]?.let {
-                MovieItem(it)
+        items(lazyPagingItems.itemCount) { index ->
+            val movie = lazyPagingItems[index]
+            if (movie != null) {
+                MovieItem(movie) {
+                    val route = Routes.MovieDetail.withParams(movie.id)
+                    navController.navigate(route)
+                }
             }
         }
     }
 }
 
 @Composable
-fun MovieItem(movie: Movie) {
+private fun MovieItem(
+    movie: Movie,
+    onMovieClick: (movie: Movie) -> Unit
+) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
+            .clickable { onMovieClick(movie) }
             .padding(8.dp),
     ) {
         Column {
@@ -120,7 +131,9 @@ fun Preview() {
         modifier = Modifier.fillMaxSize()
     ) {
         Box() {
-            MovieItem(movie)
+            MovieItem(movie) {
+                println(movie.title)
+            }
         }
     }
 

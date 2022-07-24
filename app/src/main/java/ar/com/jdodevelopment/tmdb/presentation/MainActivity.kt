@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import ar.com.jdodevelopment.tmdb.presentation.popularmovies.PopularMoviesScreen
+import androidx.navigation.compose.rememberNavController
+import ar.com.jdodevelopment.tmdb.presentation.navigation.MainNavGraph
 import ar.com.jdodevelopment.tmdb.ui.theme.TmdbApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,9 +17,9 @@ class MainActivity : AppCompatActivity() {
         installSplashScreen()
         setContent {
             TmdbApplicationTheme {
-                PopularMoviesScreen()
+                val navController = rememberNavController()
+                MainNavGraph(navController)
             }
         }
     }
-
 }
