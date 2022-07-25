@@ -18,7 +18,7 @@ import ar.com.jdodevelopment.tmdb.ui.theme.Dark
 
 @Composable
 fun VoteAverageIndicator(
-    voteAverage: Double,
+    voteAverage: Double?,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -27,15 +27,15 @@ fun VoteAverageIndicator(
             .size(40.dp)
     ) {
         CircularProgressIndicator(
-            progress = voteAverage.toFloat() / 10,
-            color = resolveColor(voteAverage),
+            progress = (voteAverage ?: 0).toFloat() / 10,
+            color = resolveColor(voteAverage ?: 0.0),
             strokeWidth = 2.dp,
             modifier = Modifier
                 .size(35.dp)
                 .align(Alignment.Center)
         )
         Text(
-            text = formatPercent(voteAverage),
+            text = if(voteAverage != null) formatPercent(voteAverage) else "-",
             color = Color.White,
             modifier = Modifier.align(Alignment.Center),
             fontSize = 11.sp
