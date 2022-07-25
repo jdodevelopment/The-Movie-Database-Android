@@ -9,16 +9,15 @@ import ar.com.jdodevelopment.tmdb.data.constants.ApiConstants
 import ar.com.jdodevelopment.tmdb.data.dto.toEntity
 import ar.com.jdodevelopment.tmdb.domain.entity.Movie
 import ar.com.jdodevelopment.tmdb.domain.entity.MovieDetail
-import ar.com.jdodevelopment.tmdb.domain.error.ErrorResolver
+import ar.com.jdodevelopment.tmdb.domain.error.ExceptionResolver
 import ar.com.jdodevelopment.tmdb.domain.repository.MoviesRepository
-import ar.com.jdodevelopment.tmdb.domain.resource.RemoteResource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class DefaultMoviesRepository @Inject constructor(
     private val moviesPagingSource: PagingSource<Int, Movie>,
     private val moviesApi: MoviesApi,
-    private val errorResolver: ErrorResolver,
+    private val exceptionResolver: ExceptionResolver,
 ) : MoviesRepository {
 
     override fun getPopularMovies(): Flow<PagingData<Movie>> {
@@ -27,13 +26,11 @@ class DefaultMoviesRepository @Inject constructor(
         }.flow
     }
 
-    override suspend fun getMovie(movieId: Long): RemoteResource<MovieDetail> {
-        return try {
-            val response = moviesApi.getMovie(movieId)
-            RemoteResource.Success(response.toEntity())
+    override suspend fun getMovie(movieId: Long): MovieDetail {
+        try {
+            return moviesApi.getMovie(movieId).toEntity()
         } catch (throwable: Throwable) {
-            val errorEntity = errorResolver.resolve(throwable)
-            RemoteResource.Failure(errorEntity)
+            throw exceptionResolver.resolve(throwable)
         }
     }
 
