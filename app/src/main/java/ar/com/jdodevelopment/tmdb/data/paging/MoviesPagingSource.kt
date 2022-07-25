@@ -5,25 +5,35 @@ import androidx.paging.PagingState
 import ar.com.jdodevelopment.tmdb.data.api.MoviesApi
 import ar.com.jdodevelopment.tmdb.data.dto.toEntity
 import ar.com.jdodevelopment.tmdb.domain.entity.Movie
+import ar.com.jdodevelopment.tmdb.domain.error.ExceptionResolver
 import javax.inject.Inject
 
 
 class MoviesPagingSource @Inject constructor(
-    private val api: MoviesApi
+    private val api: MoviesApi,
+    private val exceptionResolver: ExceptionResolver,
 ) : PagingSource<Int, Movie>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
         return try {
-            val nextPage = params.key ?: 1
-            val movieListResponse = api.getPopularMovies(nextPage)
+            val pageIndex = params.key ?: 1
+            val page = api.getPopularMovies(pageIndex)
 
-            LoadResult.Page(
-                data = movieListResponse.results.map { it.toEntity() },
-                prevKey = if (nextPage == 1) null else nextPage - 1,
-                nextKey = movieListResponse.page + 1
+            val currentPageCount = page.results.size
+            val itemsBefore = (pageIndex - 1) * params.loadSize
+            val itemsAfter = page.totalResults - (itemsBefore + currentPageCount)
+            val prevKey = if (pageIndex == 1) null else pageIndex - 1
+            val nextKey = if (itemsAfter == 0) null else pageIndex + 1
+
+            return LoadResult.Page(
+                data = page.results.map { it.toEntity() },
+                prevKey = prevKey,
+                nextKey = nextKey,
+                itemsBefore = itemsBefore,
+                itemsAfter = itemsAfter,
             )
-        } catch (e: Exception) {
-            LoadResult.Error(e)
+        } catch (throwable: Throwable) {
+            LoadResult.Error(exceptionResolver.resolve(throwable))
         }
     }
 
