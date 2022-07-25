@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">The-Movie-Database-Android</string>
+    <string name="vote_average">Vote average</string>
+    <string name="overview">Overview</string>
+    <string name="status">Status</string>
+    <string name="original_language">Original language</string>
+    <string name="error_server_not_found">The requested resource was not found</string>
+    <string name="error_server_unauthorized">You are not authorized to view this content</string>
+    <string name="error_server_unknow">An unexpected server error has occurred</string>
+    <string name="error_network">A network error has occurred, check your connection and try again</string>
+    <string name="error_unknow">An unexpected error has occurred</string>
 </resources>

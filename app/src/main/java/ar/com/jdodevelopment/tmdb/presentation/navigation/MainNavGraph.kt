@@ -27,8 +27,7 @@ fun MainNavGraph(navController: NavHostController) {
                 }
             )
         ) {
-            val movieId = it.arguments!!.getLong(MOVIE_ID_PARAM)
-            MovieDetailScreen(navController, movieId)
+            MovieDetailScreen()
         }
     }
 }

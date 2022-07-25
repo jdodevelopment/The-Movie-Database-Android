@@ -79,7 +79,6 @@ private fun MovieItem(
                             scale(Scale.FILL)
                         },
                     ),
-
                     contentDescription = null,
                     contentScale = ContentScale.Crop
                 )
