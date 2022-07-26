@@ -3,6 +3,7 @@
     <string name="vote_average">Vote average</string>
     <string name="overview">Overview</string>
     <string name="status">Status</string>
+    <string name="retry">Retry</string>
     <string name="original_language">Original language</string>
     <string name="error_server_not_found">The requested resource was not found</string>
     <string name="error_server_unauthorized">You are not authorized to view this content</string>
