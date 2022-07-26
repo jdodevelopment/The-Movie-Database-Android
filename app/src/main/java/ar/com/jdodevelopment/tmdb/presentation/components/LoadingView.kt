@@ -16,9 +16,9 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 
 
 @Composable
-fun LoadingView() {
+fun LoadingView(modifier: Modifier = Modifier) {
     Surface(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier,
     ) {
         Column(
             verticalArrangement = Arrangement.Center,

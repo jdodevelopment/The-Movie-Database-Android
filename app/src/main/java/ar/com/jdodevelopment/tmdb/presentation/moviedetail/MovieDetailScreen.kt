@@ -44,7 +44,7 @@ fun MovieDetailScreen(
         }
     }
     if (state.loading) {
-        LoadingView()
+        LoadingView(modifier = Modifier.fillMaxSize())
     }
 }
 

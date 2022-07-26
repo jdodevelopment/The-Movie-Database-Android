@@ -27,6 +27,7 @@ fun RetryableErrorView(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .padding(32.dp)
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
