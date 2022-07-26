@@ -120,11 +120,13 @@ private fun MovieDetailHeader(movieDetail: MovieDetailState) {
             style = MaterialTheme.typography.h5,
             textAlign = TextAlign.Center
         )
-        Text(
-            text = movieDetail.releaseYear,
-            style = MaterialTheme.typography.h5,
-            color = Color.DarkGray
-        )
+        if(movieDetail.releaseYear != null) {
+            Text(
+                text = movieDetail.releaseYear,
+                style = MaterialTheme.typography.h5,
+                color = Color.DarkGray
+            )
+        }
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(8.dp)
