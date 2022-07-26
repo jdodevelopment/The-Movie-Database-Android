@@ -20,7 +20,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 
 
 @Composable
-fun RetrayableErrorView(
+fun RetryableErrorView(
     errorMessage: String,
     onRetry: () -> Unit
 ) {

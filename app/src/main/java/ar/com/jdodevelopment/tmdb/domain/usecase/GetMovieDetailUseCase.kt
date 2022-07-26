@@ -4,6 +4,7 @@ import ar.com.jdodevelopment.tmdb.domain.entity.MovieDetail
 import ar.com.jdodevelopment.tmdb.domain.error.ResourceException
 import ar.com.jdodevelopment.tmdb.domain.repository.MoviesRepository
 import ar.com.jdodevelopment.tmdb.domain.resource.Resource
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -15,6 +16,7 @@ class GetMovieDetailUseCase @Inject constructor(
     operator fun invoke(movieId: Long): Flow<Resource<MovieDetail>> = flow {
         try {
             emit(Resource.Loading(true))
+            delay(2000) // This delay was added to show loading animation
             val movie = repository.getMovie(movieId)
             emit(Resource.Success(movie))
         } catch (exception: ResourceException) {

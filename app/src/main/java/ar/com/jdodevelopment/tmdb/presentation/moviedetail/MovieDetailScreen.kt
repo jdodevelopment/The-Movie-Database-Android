@@ -15,11 +15,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ar.com.jdodevelopment.tmdb.BuildConfig
 import ar.com.jdodevelopment.tmdb.R
+import ar.com.jdodevelopment.tmdb.presentation.components.LoadingView
+import ar.com.jdodevelopment.tmdb.presentation.components.RetryableErrorView
 import ar.com.jdodevelopment.tmdb.presentation.components.VoteAverageIndicator
 import coil.compose.rememberImagePainter
 import coil.size.Scale
@@ -32,6 +35,16 @@ fun MovieDetailScreen(
     val state = viewModel.state.value
     if (state.movieDetail != null) {
         MovieDetail(state.movieDetail)
+    }
+    if (state.error != null) {
+        RetryableErrorView(
+            errorMessage = stringResource(id = state.error.message),
+        ) {
+            viewModel.getMovieDetails()
+        }
+    }
+    if (state.loading) {
+        LoadingView()
     }
 }
 
@@ -102,17 +115,16 @@ private fun MovieDetailHeader(movieDetail: MovieDetailState) {
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Row() {
-            Text(
-                text = movieDetail.title,
-                style = MaterialTheme.typography.h5,
-            )
-            Text(
-                text = movieDetail.releaseYear,
-                style = MaterialTheme.typography.h5,
-                color = Color.DarkGray
-            )
-        }
+        Text(
+            text = movieDetail.title,
+            style = MaterialTheme.typography.h5,
+            textAlign = TextAlign.Center
+        )
+        Text(
+            text = movieDetail.releaseYear,
+            style = MaterialTheme.typography.h5,
+            color = Color.DarkGray
+        )
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(8.dp)
